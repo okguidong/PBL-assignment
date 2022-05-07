@@ -1,0 +1,59 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+#define SIZE 5001
+
+int circular_next(int i, int N);
+
+int main(void)
+{
+    int N, K, count = 0;
+    scanf("%d %d", &N, &K);
+
+    int people[SIZE] = { 0, };
+
+    int size = N;
+
+    for (int i = 1; i <= N; i++) {
+        people[i] = 1; //사람이 살아있으면 1, 죽었으면 0
+    }
+
+    int i = 1; //while문 안에서의 배열의 인덱스
+
+    printf("<");
+    while (N != 0) {
+
+        if (people[i] == 1) { //살아있으면
+            count++; //몇 번째인지 세어줌
+        }
+        else {
+            //intentional blank
+        }
+
+        if (people[i] == 1 && count % K == 0) {
+            people[i] = 0;
+            N--;
+            if (N == 0) {
+                printf("%d", i);
+            }
+            else {
+                printf("%d, ", i);
+            }
+        }
+
+        i = circular_next(i, size);
+    }
+    printf(">");
+
+    return 0;
+}
+
+int circular_next(int i, int size)
+{
+    if (i == size) {
+        return 1;
+    }
+    else {
+        return i + 1;
+    }
+}
